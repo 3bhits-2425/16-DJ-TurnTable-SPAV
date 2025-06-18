@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -21,6 +21,13 @@ public class DJController : MonoBehaviour
     public TMPro.TextMeshProUGUI songTitleText;
     public TMPro.TextMeshProUGUI songTitleText2;
 
+    [Header("Turntables")]
+    public Transform leftDisc;
+    public Transform rightDisc;
+
+    private float leftRotationSpeed;
+    private float rightRotationSpeed;
+
 
     void Start()
     {
@@ -38,6 +45,8 @@ public class DJController : MonoBehaviour
     {
         UpdateFade();
         UpdateSongTitle();
+        RotateDiscs();
+
     }
 
     public void PlayPauseLeft()
@@ -69,7 +78,7 @@ public class DJController : MonoBehaviour
     public void UpdateLeftAudioSettings()
     {
         leftSource.volume = leftVolumeSlider.value;
-        leftSource.pitch = Mathf.Lerp(0.5f, 2f, leftSpeedSlider.value); // Pitch 0.5x�2x
+        leftSource.pitch = Mathf.Lerp(0.5f, 2f, leftSpeedSlider.value); // Pitch 0.5x–2x
     }
 
     public void UpdateRightAudioSettings()
@@ -97,4 +106,18 @@ public class DJController : MonoBehaviour
         else
             songTitleText.text = "Kein Song spielt.";
     }
+
+    private void RotateDiscs()
+    {
+        leftRotationSpeed = Mathf.Lerp(0.5f, 2f, leftSpeedSlider.value) * 360f;
+        rightRotationSpeed = Mathf.Lerp(0.5f, 2f, rightSpeedSlider.value) * 360f;
+
+        if (leftSource.isPlaying)
+            leftDisc.Rotate(Vector3.back * leftRotationSpeed * Time.deltaTime);
+
+        if (rightSource.isPlaying)
+            rightDisc.Rotate(Vector3.back * rightRotationSpeed * Time.deltaTime);
+    }
+
+
 }
