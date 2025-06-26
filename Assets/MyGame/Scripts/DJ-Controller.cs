@@ -31,11 +31,9 @@ public class DJController : MonoBehaviour
 
     void Start()
     {
-        // Clips zuweisen
         leftSource.clip = leftClip;
         rightSource.clip = rightClip;
 
-        // Initiale Werte setzen
         UpdateLeftAudioSettings();
         UpdateRightAudioSettings();
         UpdateFade();
@@ -78,7 +76,7 @@ public class DJController : MonoBehaviour
     public void UpdateLeftAudioSettings()
     {
         leftSource.volume = leftVolumeSlider.value;
-        leftSource.pitch = Mathf.Lerp(0.5f, 2f, leftSpeedSlider.value); // Pitch 0.5x–2x
+        leftSource.pitch = Mathf.Lerp(0.5f, 2f, leftSpeedSlider.value); 
     }
 
     public void UpdateRightAudioSettings()
